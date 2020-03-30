@@ -27,6 +27,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->
 {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('comments/{post}', 'CommentController@store')->name('comments.store');
+    Route::delete('comments/{post}', 'CommentController@destroy')->name('comments.destroy');
     Route::resource('posts', 'PostController');
 });
 

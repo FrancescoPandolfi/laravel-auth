@@ -25,4 +25,14 @@ class CommentController extends Controller
 
         return redirect(route('admin.posts.show', ['post' => $post->slug]));
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $comment = Comment::where('id', $id)->first();
+
+        // dd($comment->post->slug);
+
+        $comment->delete();
+        return redirect()->route('admin.posts.show', ['post' => $comment->post->slug]);
+    }
 }

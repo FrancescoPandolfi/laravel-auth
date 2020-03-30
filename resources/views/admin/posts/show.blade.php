@@ -14,7 +14,6 @@
                                 <p class="card-text">Created : {{ $post->created_at }}</p>
                                 <p class="card-text">ID : {{ $post->id }}</p>
 
-                                {{-- SHOW BUTTON --}}
                                 <form action="{{route('admin.posts.destroy', $post)}}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -30,13 +29,14 @@
         <div class="row">
             <div class="col">
                 <h3 class="mt-3">Leave a comment</h3>
-            <form action="{{route('admin.comments.store', $post)}}" method="POST">
-                    @csrf
-                    <div class="form-row mt-4">
-                        <div class="col">
+                    <form action="{{route('admin.comments.store', $post)}}" method="POST">
+                        @csrf
+                        <div class="form-row mt-4">
+                            <div class="col">
                             <input type="text" name="name" class="form-control mb-2" placeholder="Name">
                             <textarea name="body" class="form-control" placeholder="Comment"></textarea>
                             <button type="submit" class="btn btn-success mt-2">Send</button>
+                    </form>
                            
                             <h3 class="mt-5">Comments</h3>
                             <ul class="list-group">
@@ -44,14 +44,22 @@
                                     <li class="list-group-item">
                                         <h5 class="font-weight-bolder">{{$comment->body}}</h5>
                                         <p class="text-secondary">--{{$comment->name}}</p>
+                                        @auth
+                                        <form action="{{route('admin.comments.destroy', $comment->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="close" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button> 
+                                        </form>
+                                        @endauth
+                                        
                                     </li>  
                                 @endforeach
                             </ul>
 
                         </div>
                       </div>
-                      
-                </form>
             </div>
         </div>
     </div>  
