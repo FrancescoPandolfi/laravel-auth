@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -17,7 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        dd('it works!');
+        $posts = Post::where('user_id', Auth::id())->get();
+
+        return view('admin.posts.index', ['posts' => $posts]);
     }
 
     /**
