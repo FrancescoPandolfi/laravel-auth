@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,6 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('user_id', Auth::id())->get();
-
         return view('admin.posts.index', ['posts' => $posts]);
     }
 
@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -42,7 +42,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string'
+            ]);
+
+        
+        $post = Post::create([
+            'user_id' => Auth::id(),
+            'title' => $validatedData['title'],
+            'body' => $validatedData['body'],
+            'slug' => Str::slug($request->title) . '-' . rand(1,10000)
+        ]);
+
+        return redirect(route('admin.posts.show', ['post' => $post->slug]));
+
     }
 
     /**
