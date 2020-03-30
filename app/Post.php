@@ -12,12 +12,16 @@ class Post extends Model
         'body',
         'slug',
         'updated_at'
-
     ];
 
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsTo('App\User');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
     }
 }

@@ -22,9 +22,11 @@ Auth::routes();
 Route::get('/posts', 'PostController@index')->name('posts.index');
 
 
+
 Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth')->group(function()
 {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('comments/{post}', 'CommentController@store')->name('comments.store');
     Route::resource('posts', 'PostController');
 });
 
