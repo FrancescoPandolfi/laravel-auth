@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if (session('delete'))
+<div class="alert alert-success">
+    {{ session('delete') }}
+</div>
+@endif 
+
     <div class="container">
         <div class="row">
                 @foreach ($posts as $post)
@@ -15,7 +21,6 @@
                                 <p class="card-text">Created : {{ $post->created_at }}</p>
 
                                 {{-- BUTTONS --}}
-                                <a href="{{route('admin.posts.destroy', $post->slug)}}" class="btn btn-danger float-right mr-3">Delete</a>
                                 <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-success float-right mr-3">Edit</a>
                                 <a href="{{route('admin.posts.show', $post->slug)}}" class="btn btn-success float-right mr-3">Read</a>
                                 

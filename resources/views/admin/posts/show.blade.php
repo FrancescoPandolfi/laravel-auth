@@ -12,9 +12,15 @@
                                 <p class="card-text">Slug : {{ $post->slug }}</p>
                                 <p class="card-text">Updated : {{ $post->updated_at }}</p>
                                 <p class="card-text">Created : {{ $post->created_at }}</p>
+                                <p class="card-text">ID : {{ $post->id }}</p>
 
                                 {{-- SHOW BUTTON --}}
-                                <a href="{{route('admin.posts.destroy', $post->slug)}}" class="btn btn-danger float-right mr-3">Delete</a>
+                                <form action="{{route('admin.posts.destroy', $post)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger float-right ">Delete</button>
+                                </form>
+
                                 <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-success float-right mr-3">Edit</a>
                                 
                             </div>
