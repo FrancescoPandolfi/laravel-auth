@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('guest/posts', 'PostController@index')->name('posts.index');
+
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
 {
