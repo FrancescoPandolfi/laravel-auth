@@ -11,6 +11,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <h4>MY POSTS</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <a href="{{route('admin.posts.create')}}" class="btn btn-info float-right mb-4">Add new post</a>
             </div>
         </div>

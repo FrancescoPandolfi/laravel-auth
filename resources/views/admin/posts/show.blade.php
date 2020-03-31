@@ -28,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <h3 class="mt-3">Leave a comment</h3>
+                {{-- <h3 class="mt-3">Leave a comment</h3>
                     <form action="{{route('admin.comments.store', $post)}}" method="POST">
                         @csrf
                         <div class="form-row mt-4">
@@ -36,7 +36,7 @@
                             <input type="text" name="name" class="form-control mb-2" placeholder="Name">
                             <textarea name="body" class="form-control" placeholder="Comment"></textarea>
                             <button type="submit" class="btn btn-success mt-2">Send</button>
-                    </form>
+                    </form> --}}
                            
                             <h3 class="mt-5">Comments</h3>
                             <ul class="list-group">

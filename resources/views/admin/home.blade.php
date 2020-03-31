@@ -25,11 +25,6 @@
                     <div class="sm-title mb-5">
                     Dear {{Auth::user()->name}}, <br> welcome to The Useless Blog
                     </div>
-    
-                    <div class="links">
-                    <a href="{{route('posts.index')}}">All Posts</a>
-                    <a href="{{route('admin.posts.index')}}">Your Posts</a>
-                    </div>
                 </div>
             </div>
 
