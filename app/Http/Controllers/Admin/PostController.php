@@ -32,6 +32,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string'
@@ -44,6 +45,11 @@ class PostController extends Controller
             'slug' => Str::slug($request->title) . '-' . rand(1,10000)
         ]);
 
+        $tagsArray = $request->tags;
+            if(!empty($tagsArray)){
+                $post->tags()->attach($tagsArray);
+            }
+        
         return redirect(route('admin.posts.show', ['post' => $post->slug]));
     }
 
