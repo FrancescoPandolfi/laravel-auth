@@ -34,7 +34,6 @@
                         @foreach ($tags as $tag)
                         <input type="checkbox" name="tags[]" value="{{$tag->id}}">
                         <span class="mr-4">{{$tag->name}}</span>
-                            
                         @endforeach
                     </div>
 

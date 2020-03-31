@@ -65,7 +65,10 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where('slug', $slug)->first();
-        return view('admin.posts.edit', ['post' => $post]);
+        return view('admin.posts.edit', [
+            'post' => $post,
+            'tags' => Tag::all()
+        ]);
     }
 
 
@@ -86,6 +89,11 @@ class PostController extends Controller
             'body' => $validatedData['body'],
             'updated_at' => Carbon::now()
         ]);
+
+        $tagsArray = $request->tags;
+        if(!empty($tagsArray)){
+            $post->tags()->sync($tagsArray);
+        }
 
         return redirect(route('admin.posts.show', ['post' => $post->slug]));
     }

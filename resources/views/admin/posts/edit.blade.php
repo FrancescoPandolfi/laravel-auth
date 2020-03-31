@@ -29,6 +29,16 @@
                     @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label class="mr-4 text-bold" for="tags">Tags</label>
+                        @foreach ($tags as $tag)
+                        <input type="checkbox" name="tags[]" value="{{$tag->id}}" 
+                        {{($post->tags->contains($tag->id) ? 'checked' : '')}}>
+
+                        <span class="mr-4">{{$tag->name}}</span>
+                        @endforeach
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Update</button>
 
                 </form>
