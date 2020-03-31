@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Tag;
 use App\Post;
 use App\User;
 use DateTimeZone;
@@ -25,7 +26,7 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.posts.create', ['tags' => Tag::all()]);
     }
 
 

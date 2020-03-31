@@ -31,12 +31,14 @@
                            
                             <h3 class="mt-5">Comments</h3>
                             <ul class="list-group">
-                                @foreach ($post->comments()->latest()->get() as $comment)
+                                @forelse ($post->comments()->latest()->get() as $comment)
                                     <li class="list-group-item">
                                         <h5 class="font-weight-bolder">{{$comment->body}}</h5>
                                         <p class="text-secondary">--{{$comment->name}}</p>
                                     </li>  
-                                @endforeach
+                                    @empty
+                                    <li class="list-group-item">No comments</li>
+                                @endforelse
                             </ul>
 
                         </div>

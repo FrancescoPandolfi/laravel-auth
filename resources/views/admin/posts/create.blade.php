@@ -28,8 +28,18 @@
                     @enderror
                     </div>
 
+                    
+                    <div class="form-group">
+                        <label class="mr-4 text-bold" for="tags">Tags</label>
+                        @foreach ($tags as $tag)
+                        <input type="checkbox" name="tags[]" value="{{$tag->id}}">
+                        <span class="mr-4">{{$tag->name}}</span>
+                            
+                        @endforeach
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Add</button>
+
+                    <button type="submit" class="btn btn-primary">Save</button>
 
                 </form>
 
