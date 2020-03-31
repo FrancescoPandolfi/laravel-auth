@@ -10,6 +10,11 @@
 
     <div class="container">
         <div class="row">
+            <div class="col">
+                <a href="{{route('admin.posts.create')}}" class="btn btn-info float-right mb-4">Add new post</a>
+            </div>
+        </div>
+        <div class="row">
                 @foreach ($posts as $post)
                     <div class="col-lg-4 col-md-6 col-xs-12"> 
                         <div class="card mb-3">
