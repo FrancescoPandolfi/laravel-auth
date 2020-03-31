@@ -50,9 +50,7 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
-
         abort_if(empty($post), 404);
-
         return view('admin.posts.show', ['post' => $post]);
     }
 
