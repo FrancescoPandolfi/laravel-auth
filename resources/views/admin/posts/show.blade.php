@@ -28,6 +28,14 @@
         </div>
         <div class="row">
             <div class="col">
+                <h4 class="mt-3">Tags</h4>
+                @foreach ($post->tags as $tag)
+                <button type="button" class="btn btn-secondary btn-lg" disabled>{{$tag->name}}</button>
+                @endforeach
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 {{-- <h3 class="mt-3">Leave a comment</h3>
                     <form action="{{route('admin.comments.store', $post)}}" method="POST">
                         @csrf
