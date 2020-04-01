@@ -91,6 +91,12 @@ class PostController extends Controller
         ]);
 
         $tagsArray = $request->tags;
+        foreach ($tagsArray as $key => $tag) {
+            $tagSearched = Tag::find($tag);
+            if(empty($tagSearched)) {
+                unset($tagsArray[$key]);
+            }
+        }
         if(!empty($tagsArray)){
             $post->tags()->sync($tagsArray);
         }
