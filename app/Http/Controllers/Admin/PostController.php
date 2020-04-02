@@ -35,11 +35,7 @@ class PostController extends Controller
     {
 
 
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
-            'image_path' => 'image'
-            ]);
+        $validatedData = $request->validate($this->data());
 
         $path = Storage::disk('public')->put('images', $request->image_path);
         
@@ -48,7 +44,7 @@ class PostController extends Controller
             'title' => $validatedData['title'],
             'body' => $validatedData['body'],
             'slug' => Str::slug($request->title) . '-' . rand(1,10000),
-            'image_path' => $path,
+            'image_path' => $path
         ]);
 
         $tagsArray = $request->tags;
@@ -62,33 +58,45 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->first();
-        abort_if(empty($post), 404);
+        $post = Post::where('slug', $slug)->firstOrFail();
+
         return view('admin.posts.show', ['post' => $post]);
     }
 
 
     public function edit($slug)
     {
-        $post = Post::where('slug', $slug)->first();
+        $post = Post::where('slug', $slug)->firstOrFail();
         return view('admin.posts.edit', [
             'post' => $post,
             'tags' => Tag::all()
         ]);
     }
 
-
+    protected function data()
+    {
+        return
+        $dataToValidate = [
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'image_path' => 'image'
+        ];
+    }
+ 
     public function update(Request $request, Post $post)
     {
+        // dd(empty($request->tags));
 
         if ($post->user->id != Auth::user()->id) {
             abort(404);
         }
 
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'body' => 'required|string'
-        ]);
+        $validatedData = $request->validate($this->data());
+
+        if (!empty($request->image_path)) {
+            $path = Storage::disk('public')->put('images', $request->image_path);
+            $post->update(['image_path' => $path]);
+        }
 
         $post->update([
             'title' => $validatedData['title'],
@@ -96,16 +104,19 @@ class PostController extends Controller
             'updated_at' => Carbon::now()
         ]);
 
-        $tagsArray = $request->tags;
-        foreach ($tagsArray as $key => $tag) {
-            $tagSearched = Tag::find($tag);
-            if(empty($tagSearched)) {
-                unset($tagsArray[$key]);
+
+
+        if (!empty($request->tags)) {
+            $tagsArray = $request->tags;
+            foreach ($tagsArray as $key => $tag) {
+                if(empty(Tag::find($tag))) {
+                    unset($tagsArray[$key]);
+                }
             }
         }
-        if(!empty($tagsArray)){
-            $post->tags()->sync($tagsArray);
-        }
+            if(!empty($tagsArray)){
+                $post->tags()->sync($tagsArray);
+            }
 
         return redirect(route('admin.posts.show', ['post' => $post->slug]));
     }
@@ -114,6 +125,8 @@ class PostController extends Controller
  
     public function destroy(Post $post)
     {
+        abort_if(empty($post), 404);
+
         $post->delete();
         return redirect()->route('admin.posts.index')->with('delete', " You deleted the post with id: $post->id");
     }

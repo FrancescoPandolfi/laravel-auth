@@ -10,13 +10,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h4>MY POSTS</h4>
+            <div class="col-8">
+                <h1>My stories</h1>
+            </div>
+            <div class="col-4">
+                <a href="{{route('admin.posts.create')}}" class="btn btn-outline-dark float-right mb-4">New story</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
             <div class="col">
-                <a href="{{route('admin.posts.create')}}" class="btn btn-info float-right mb-4">Add new post</a>
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item">Published</li>
+                    <li class="list-group-item">Draft</li>
+                  </ul>
             </div>
         </div>
         <div class="row">
@@ -24,6 +30,8 @@
                     <div class="col-lg-4 col-md-6 col-xs-12"> 
                         <div class="card mb-3">
                             <div class="card-body">
+                                @if (!empty($post->image_path))
+                                <img class="image mb-3" src="{{asset('storage/' . $post->image_path)}}" alt=""> @endif
                                 <h2 class="card-title">{{ $post->title }}</h2>
                                 <p class="card-text">{{ $post->body }}</p>
                                 <p class="card-text">Slug : {{ $post->slug }}</p>
@@ -31,8 +39,8 @@
                                 <p class="card-text">Created : {{ $post->created_at }}</p>
 
                                 {{-- BUTTONS --}}
-                                <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-success float-right mr-3">Edit</a>
-                                <a href="{{route('admin.posts.show', $post->slug)}}" class="btn btn-success float-right mr-3">Read</a>
+                                <a href="{{route('admin.posts.edit', $post->slug)}}" class="btn btn-outline-dark float-right">Edit</a>
+                                <a href="{{route('admin.posts.show', $post->slug)}}" class="btn btn-outline-dark float-right mr-3">Read</a>
                                 
                             </div>
                         </div>

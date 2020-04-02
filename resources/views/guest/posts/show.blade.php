@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-                    <div class="col"> 
+                    <div class="col-8"> 
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h2 class="card-title">{{ $post->title }}</h2>
@@ -16,6 +16,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-4"><img class="image" src="{{asset('storage/' . $post->image_path)}}" alt=""></div>
         </div>
 
 

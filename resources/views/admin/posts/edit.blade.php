@@ -6,9 +6,9 @@
         <div class="row">
             <div class="col-12">
 
-                <h2>Edit post</h2>
+                <h2>Edit story</h2>
 
-            <form method="POST" action="{{route('admin.posts.update', $post)}}">
+            <form method="POST" action="{{route('admin.posts.update', $post)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
             
@@ -30,6 +30,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="body">Image</label>
+                        <input class="form-control" type="file" name="image_path" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
                         <label class="mr-4 text-bold" for="tags">Tags</label>
                         @foreach ($tags as $tag)
                         <input type="checkbox" name="tags[]" value="{{$tag->id}}" 
@@ -39,7 +44,7 @@
                         @endforeach
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-outline-dark">Update</button>
 
                 </form>
 

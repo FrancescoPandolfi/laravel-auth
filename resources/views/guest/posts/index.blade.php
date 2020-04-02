@@ -11,6 +11,8 @@
                     <div class="col-lg-4 col-md-6 col-xs-12"> 
                         <div class="card mb-3">
                             <div class="card-body">
+                                @if (!empty($post->image_path))
+                                <img class="image mb-3" src="{{asset('storage/' . $post->image_path)}}" alt=""> @endif
                                 <h2 class="card-title">{{ $post->title }}</h2>
                                 <p class="card-text">{{ $post->body }}</p>
                                 <p class="card-text">Slug : {{ $post->slug }}</p>
