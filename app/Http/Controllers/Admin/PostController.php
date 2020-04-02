@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -33,16 +34,21 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string'
+            'body' => 'required|string',
+            'image_path' => 'image'
             ]);
+
+        $path = Storage::disk('public')->put('images', $request->image_path);
         
         $post = Post::create([
             'user_id' => Auth::id(),
             'title' => $validatedData['title'],
             'body' => $validatedData['body'],
-            'slug' => Str::slug($request->title) . '-' . rand(1,10000)
+            'slug' => Str::slug($request->title) . '-' . rand(1,10000),
+            'image_path' => $path,
         ]);
 
         $tagsArray = $request->tags;

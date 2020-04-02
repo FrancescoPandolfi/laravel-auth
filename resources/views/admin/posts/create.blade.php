@@ -8,7 +8,7 @@
 
                 <h2>Add new post</h2>
 
-            <form method="POST" action="{{route('admin.posts.store')}}">
+            <form method="POST" action="{{route('admin.posts.store')}}" enctype="multipart/form-data">
                     @csrf
             
                     <div class="form-group">
@@ -26,6 +26,11 @@
                     @error('body')
                         <small class="form-text text-danger">{{$message}}</small>
                     @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body">Image</label>
+                        <input class="form-control" type="file" name="image_path" accept="image/*">
                     </div>
 
                     

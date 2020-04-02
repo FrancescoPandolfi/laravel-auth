@@ -17,8 +17,9 @@ class PostSeeder extends Seeder
         for ($i=0; $i < 10; $i++) { 
             
             $newPost = new Post();
-            $newPost->user_id = 2;
+            $newPost->user_id = 1;
             $newPost->title = $faker->sentence(3);
+            $newPost->published = rand(0, 1);
             $newPost->body = $faker->paragraph(5);
             $newPost->slug = Str::slug($newPost->title) . '-' . rand(1,10000);
             $newPost->save();
