@@ -7,6 +7,7 @@
                     <div class="col"> 
                         <div class="card mb-3">
                             <div class="card-body">
+                                <img src="{{asset('storage/' . $post->image_path)}}" alt="">
                                 <h2 class="card-title">{{ $post->title }}</h2>
                                 <p class="card-text">{{ $post->body }}</p>
                                 <p class="card-text">Slug : {{ $post->slug }}</p>
